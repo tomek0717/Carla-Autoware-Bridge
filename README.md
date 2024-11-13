@@ -8,8 +8,22 @@
 </div>
 
 ## Prerequisites
--
--
+-Install docker
+```
+TODO
+```
+
+-Terminator 
+```
+sudo apt update
+sudo apt install terminator
+```
+
+-Check the graphic card drivers
+
+  ```
+  nvidia-smi
+  ```
 -
 
 ## Introduction
@@ -128,3 +142,6 @@ rocker --network=host -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp -e LIBGL_ALWAYS_S
 - We are currently working on making traffic light detection possible, at least for Town10HD
 - Autoware is a map-based approach and some maps may not allow some positions to be reached or some lane changes may not be possible. We are continuously trying to improve our map conversion
 - We aim to enhance future efficiency by ensuring that the bridge is Python-free, utilizing native DDS connection with the CARLA simulator
+
+## Known issues
+- University network could block some network traffic so you should be able to manage it using alternative one.
