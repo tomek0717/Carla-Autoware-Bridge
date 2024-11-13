@@ -7,24 +7,86 @@
 
 </div>
 
+## Overview
+The simulation framework around the CARLA-Autoware-Bridge consists of the components:
+- carla-autoware-bridge: This repository holding the CARLA-Autoware-Bridge.
+- ros-bridge: Fork of the ros-bridge with our changes needed for the CARLA-Autoware-Bridge.
+- carla-t2: Vehicle model and sensor kit packages of the CARLA T2 2021 Vehicle for Autoware.
+- carla-ros-msgs:  Fork of the carla-ros-msg with our changes needed for the CARLA-Autoware-Bridge.
+
 ## Prerequisites
--Install docker
+Install ubuntu 24.04
+ 
+https://ubuntu.com/download/desktop
+
+Install docker
 ```
 TODO
+
+```
+Dockers handling
+```
+# Download an image from a registry
+docker pull [OPTIONS] NAME[:TAG|@DIGEST]
+# Example 
+docker pull debian
+
+# Create and run a new container from an image
+docker run
+# Example
+docker run --name test -d nginx:alpine
+
+# Execute a command in a running container
+docker exec
+# Example
+docker exec -it container-name /bin/bash
+
+# Load an image from a tar archive or STDIN
+docker load [OPTIONS]
+# Example
+docker load --input fedora.tar
+
+# Save one or more images to a tar archive (streamed to STDOUT by default)
+docker save [OPTIONS] IMAGE [IMAGE...]
+# Example
+docker save --output busybox.tar busybox
+
+# List images
+docker images
+
+# List containers
+docker ps
 ```
 
--Terminator 
+Terminator 
 ```
 sudo apt update
 sudo apt install terminator
 ```
+Install Nvidia docker toolkit
 
--Check the graphic card drivers
+[Nvidia docker toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+```
+
+```
+Check the graphic card drivers
 
   ```
   nvidia-smi
   ```
--
+
+## WSL
+https://documentation.ubuntu.com/wsl/en/latest/guides/install-ubuntu-wsl2/
+
+  ```
+  wsl --install 
+  wsl --list --online
+  wsl --install -d Ubuntu-24.04
+  # reboot
+  ubuntu2404.exe
+  ```
+
+
 
 ## Introduction
 The CARLA-Autoware-Bridge is a package to connect the CARLA simulator to Autoware Core/Universe with the help of the CARLA-ROS-Bridge. Currently the **latest Autoware Core/Universe** and **CARLA 0.9.15** is supported.
@@ -51,12 +113,7 @@ with a Unified Framework for Simulation and Module Development,
 
 The Paper is currently under review and only published as preprint.
 
-## Overview
-The simulation framework around the CARLA-Autoware-Bridge consists of the components:
-- carla-autoware-bridge: This repository holding the CARLA-Autoware-Bridge.
-- ros-bridge: Fork of the ros-bridge with our changes needed for the CARLA-Autoware-Bridge.
-- carla-t2: Vehicle model and sensor kit packages of the CARLA T2 2021 Vehicle for Autoware.
-- carla-ros-msgs:  Fork of the carla-ros-msg with our changes needed for the CARLA-Autoware-Bridge.
+
 
 ## How to Build and Install the Bridge
 The easiest way to use the CARLA-Autoware-Bridge is to use our prebuilt docker image or to build the docker image by yourself. Bu we also provide a tutorial for local usage.
