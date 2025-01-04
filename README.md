@@ -177,7 +177,7 @@ docker pull carlasim/carla:0.9.15
 ```
 ```bash
 # Start CARLA
-docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY carlasim/carla:0.9.15 /bin/bash ./CarlaUE4.sh -carla-rpc-port=1403 
+docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY carlasim/carla:0.9.15 /bin/bash ./CarlaUE4.sh carla-rpc-port=1403 -prefernvidia -quality-level=Low
 ```
 Additional information:
 - `-prefernvidia` - use NVIDIA GPU for hardware acceleration
@@ -191,7 +191,7 @@ Run the carla-autoware-bridge
 docker run -it -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp --network host tumgeka/carla-autoware-bridge:latest
 
 # Launch the bridge
-ros2 launch carla_autoware_bridge carla_aw_bridge.launch.py port:=1403 town:=Town10HD
+ros2 launch carla_autoware_bridge carla_aw_bridge.launch.py port:=1403 town:=Town10HD timeout:=500
 ```
 
 Additional information:
@@ -208,8 +208,55 @@ python3 src/carla_autoware_bridge/utils/generate_traffic.py -p 1403
 ```
 
 ### 3) Autoware
+
+Go to home directory and open terminal
+```
+git clone https://github.com/PanHassan/Carla-Autoware-Bridge.git
+```
+cd Carla-Autoware-Bridge/
+```
+git clone https://github.com/autowarefoundation/autoware.git
+```
+cd autoware
+```
+git checkout 2024.01
+```
+
+Install Rocker
+```
+sudo apt install software-properties-common
+sudo apt update && sudo apt install curl -y
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+sudo apt update
+sudo apt-get install python3-rocker
+```
+
+Run docker
+```
+rocker --network=host -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --nvidia --volume /path/to/code -- ghcr.io/autowarefoundation/autoware:humble-2024.01-cuda-amd64
+```
+In my case something like that:
+```
+rocker --network=host -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --nvidia --volume /home/ads/Carla-Autoware-Bridge/ -- ghcr.io/autowarefoundation/autoware:humble-2024.01-cuda-amd64
+```
+
+Inside docker
+```
+cd /home/ads/Carla-Autoware-Bridge/autoware
+mkdir src
+vcs import src < autoware.repos
+cd src
+git clone https://github.com/TUMFTM/Carla_t2.git
+cd ..
+colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+```
+
+================================================== verified to this section
+
 To use Autoware some minor [adjustments](/doc/autoware-changes.md) are required. Additionally you will need our sensorkit and vehicle model.
 ```
+
 git clone https://github.com/TUMFTM/Carla_t2.git
 ```
 
@@ -234,3 +281,19 @@ rocker --network=host -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp -e LIBGL_ALWAYS_S
 
 ## Known issues
 - University network could block some network traffic so you should be able to manage it using alternative one.
+
+
+## Managing carla container
+
+login as a root
+docker exec -it --user root sleepy_lederberg /bin/bash
+
+install pip
+apt install python3-pip -y
+pip3 install --upgrade pip
+pip3 install --user pygame numpy
+pip3 install -r requirements.txt
+apt install wget
+wget https://files.pythonhosted.org/packages/ae/1d/4f717f56dcaa27fa35f7d51b1d858be1e68271e34d1c3f1f24c5cabe3a9c/carla-0.9.15-cp37-cp37m-manylinux_2_27_x86_64.whl
+
+ pip3 install carla==0.9.15
