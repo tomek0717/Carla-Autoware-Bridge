@@ -1,7 +1,7 @@
 <div align="center">
 
 # CARLA-Autoware-Bridge - Enables the use of CARLA for Testing and Development of Autoware Core/Universe
-[![Linux](https://img.shields.io/badge/os-ubuntu22.04-blue.svg)](https://www.linux.org/)
+[![Linux](https://img.shields.io/badge/os-ubuntu24.04-blue.svg)](https://www.linux.org/)
 [![Docker](https://badgen.net/badge/icon/docker?icon=docker&label)](https://www.docker.com/)
 [![ROS2humble](https://img.shields.io/badge/ros2-humble-blue.svg)](https://docs.ros.org/en/humble/index.html)
 
