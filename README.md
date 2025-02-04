@@ -118,7 +118,7 @@ docker pull carlasim/carla:0.9.15
 ```
 ```bash
 # Start CARLA
-docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY carlasim/carla:0.9.15 /bin/bash ./CarlaUE4.sh carla-rpc-port=1403 -prefernvidia -quality-level=Low
+docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY carlasim/carla:0.9.15 /bin/bash ./CarlaUE4.sh -prefernvidia
 ```
 Additional information:
 - `-prefernvidia` - use NVIDIA GPU for hardware acceleration
@@ -144,7 +144,7 @@ Run the carla-autoware-bridge
 docker run -it -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp --network host tumgeka/carla-autoware-bridge:latest
 
 # Launch the bridge
-ros2 launch carla_autoware_bridge carla_aw_bridge.launch.py port:=1403 town:=Town10HD timeout:=500
+ros2 launch carla_autoware_bridge carla_aw_bridge.launch.py town:=Town10HD timeout:=500
 ```
 
 Additional information:
@@ -168,6 +168,13 @@ extract it to folder:
 Carla-Autoware-Bridge/Town10
 ```
 ### 3) Autoware
+
+Autoware changes often, for a reproducible behaviour we recommend you to use a tagged autoware version:
+https://github.com/autowarefoundation/autoware/tree/2024.01
+
+```bash
+docker pull ghcr.io/autowarefoundation/autoware:humble-2024.01-cuda-amd64
+```
 
 Go to home directory and open terminal
 ```
@@ -277,14 +284,7 @@ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=carla_t2_veh
 ```
 
 
-Autoware changes often, for a reproducible behaviour we recommend you to use a tagged autoware version:
-https://github.com/autowarefoundation/autoware/tree/2024.01
 
-```bash
-docker pull ghcr.io/autowarefoundation/autoware:humble-2024.01-cuda-amd64
-
-rocker --network=host -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --nvidia --volume /path/to/code -- ghcr.io/autowarefoundation/autoware-universe:humble-2024.01-cuda-amd64
-```
 
 ## Limitations and Future Work
 - We are currently working on making traffic light detection possible, at least for Town10HD
