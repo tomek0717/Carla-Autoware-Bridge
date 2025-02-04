@@ -156,8 +156,6 @@ The Paper is currently under review and only published as preprint.
 #### Local Workflow
 Comming Soon. Until then, take a look at our Dockerfile.
 
-#### Maps
-Autoware needs the maps in a special lanelet2 format, we will upload all converted maps in the future under the following link: [carla-autoware-bridge/maps](https://syncandshare.lrz.de/getlink/fiBgYSNkmsmRB28meoX3gZ/)
 
 ## General Installation and Usage
 The installation and usage of the CARLA-Autoware-Bridge is described in the following tutourial. In order to function properly the packages should be started in the order CARLA --> CARLA-Autoware-Bridge --> Autoware. 
@@ -183,7 +181,7 @@ The easiest way to use the CARLA-Autoware-Bridge is to use our prebuilt docker i
 
 #### Docker Workflow(Recommended)
 You can build the docker image by yourself or use the image from our github registry.
-```
+```bash
 # Pull our latest docker image
 docker pull tumgeka/carla-autoware-bridge:latest
 
@@ -211,7 +209,14 @@ If you want to spawn traffic run the following script inside the docker:
 ```
 python3 src/carla_autoware_bridge/utils/generate_traffic.py -p 1403
 ```
+#### Maps
+Autoware needs the maps in a special lanelet2 format, we will upload all converted maps in the future under the following link: [carla-autoware-bridge/maps](https://syncandshare.lrz.de/getlink/fiBgYSNkmsmRB28meoX3gZ/)
 
+download map Town10
+extract it to folder:
+```
+Carla-Autoware-Bridge/Town10
+```
 ### 3) Autoware
 
 Go to home directory and open terminal
@@ -256,27 +261,60 @@ git clone https://github.com/TUMFTM/Carla_t2.git
 cd ..
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 ```
-
-================================================== verified to this section
+do not close this console we will go back to it after build
 
 
 To use Autoware some minor adjustments are required. Additionally you will need dedicated sensorkit and vehicle model.
 
 In VS code open folder 
-Carla-Autoware-Bridge/autoware
-```
+
+Carla-Autoware-Bridge/autoware 
+
 open file
 autoware/src/launcher/autoware_launch/autoware_launch/launch/autoware.launch.xml
 change line 71 to 
 ```
 <arg name="config_dir" value="$(find-pkg-share carla_t2_sensor_kit_description)/config/"/>
 ```
+
+save changes
+
 open file
-autoware/src/universe/autoware.universe/launch/tier4_localization_launch/launch/localization.launch.xml
-change line 17 to 
+autoware/src/launcher/autoware_launch/autoware_launch/launch/components/tier4_localization_component.launch.xml
+
+change line 6 to 
+```
 <arg name="input_pointcloud" default="/sensor/lidar/front" description="The topic will be used in the localization util module"/>
-change line 18 to
+```
+
+add to line 7 
+```
 <arg name="lidar_container_name" default="/sensing/lidar/front/pointcloud_preprocessor/pointcloud_container" description="The target container to which lidar preprocessing nodes in localization be attached"/>
+```
+save changes
+
+go back to console where you have run build and rebuild the changed packet
+```
+colcon build --packages-select autoware_launch
+```
+
+++ AT THIS POINT THE SETUP OF THE ENVIRONMENT AND COMPONENTS ARE FINISHED ++
+
+Runing scheme :
+
+```bash
+# Start carla
+docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY carlasim/carla:0.9.15 /bin/bash ./CarlaUE4.sh carla-rpc-port=1403 -prefernvidia -quality-level=Low
+
+# Start the bridge docker
+docker run -it -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp --network host tumgeka/carla-autoware-bridge:latest
+
+# Launch the bridge
+ros2 launch carla_autoware_bridge carla_aw_bridge.launch.py port:=1403 town:=Town10HD timeout:=500
+
+# Start the autoware docker
+rocker --network=host -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --nvidia --volume /path/to/code -- ghcr.io/autowarefoundation/autoware-universe:humble-2024.01-cuda-amd64
+```
 
 Launch autoware
 ```bash
