@@ -25,6 +25,10 @@ sudo apt update
 sudo apt install terminator
 ```
 
+Install Visual Studio Code 
+https://code.visualstudio.com/docs/?dv=linux64_deb
+Install using App center
+
 Install docker
 https://docs.docker.com/engine/install/ubuntu/
 ```
@@ -255,11 +259,24 @@ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 ================================================== verified to this section
 
-To use Autoware some minor [adjustments](/doc/autoware-changes.md) are required. Additionally you will need our sensorkit and vehicle model.
-```
 
-git clone https://github.com/TUMFTM/Carla_t2.git
+To use Autoware some minor adjustments are required. Additionally you will need dedicated sensorkit and vehicle model.
+
+In VS code open folder 
+Carla-Autoware-Bridge/autoware
 ```
+open file
+autoware/src/launcher/autoware_launch/autoware_launch/launch/autoware.launch.xml
+change line 71 to 
+```
+<arg name="config_dir" value="$(find-pkg-share carla_t2_sensor_kit_description)/config/"/>
+```
+open file
+autoware/src/universe/autoware.universe/launch/tier4_localization_launch/launch/localization.launch.xml
+change line 17 to 
+<arg name="input_pointcloud" default="/sensor/lidar/front" description="The topic will be used in the localization util module"/>
+change line 18 to
+<arg name="lidar_container_name" default="/sensing/lidar/front/pointcloud_preprocessor/pointcloud_container" description="The target container to which lidar preprocessing nodes in localization be attached"/>
 
 Launch autoware
 ```bash
