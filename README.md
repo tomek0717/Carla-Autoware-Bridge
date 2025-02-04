@@ -147,18 +147,7 @@ The Paper is currently under review and only published as preprint.
 
 
 
-## How to Build and Install the Bridge
-The easiest way to use the CARLA-Autoware-Bridge is to use our prebuilt docker image or to build the docker image by yourself. Bu we also provide a tutorial for local usage.
 
-#### Docker Workflow(Recommended)
-You can build the docker image by yourself or use the image from our github registry.
-```
-# Pull our latest docker image
-docker pull tumgeka/carla-autoware-bridge:latest
-
-# Alternatively build it yourself by running our build_docker.sh
-./docker/build_docker.sh
-```
 
 #### Local Workflow
 Comming Soon. Until then, take a look at our Dockerfile.
@@ -185,6 +174,18 @@ Additional information:
 - `-quality-level=Low` - use low quality level mode for a minimal video memory consumption
 
 ### 2) CARLA-Autoware-Bridge
+## How to Build and Install the Bridge
+The easiest way to use the CARLA-Autoware-Bridge is to use our prebuilt docker image or to build the docker image by yourself. Bu we also provide a tutorial for local usage.
+
+#### Docker Workflow(Recommended)
+You can build the docker image by yourself or use the image from our github registry.
+```
+# Pull our latest docker image
+docker pull tumgeka/carla-autoware-bridge:latest
+
+# Alternatively build it yourself by running our build_docker.sh
+./docker/build_docker.sh
+```
 Run the carla-autoware-bridge
 ```bash
 # If you are using a docker start the docker first
