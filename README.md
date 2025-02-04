@@ -107,13 +107,6 @@ sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
 ```
 
-
-
-
-#### Local Workflow
-Comming Soon. Until then, take a look at our Dockerfile.
-
-
 ## General Installation and Usage
 The installation and usage of the CARLA-Autoware-Bridge is described in the following tutourial. In order to function properly the packages should be started in the order CARLA --> CARLA-Autoware-Bridge --> Autoware. 
 
@@ -360,3 +353,22 @@ docker images
 # List containers
 docker ps
 ```
+
+## miniconda install
+https://medium.com/@hitorunajp/starting-with-carla-on-docker-a352d7269fd3
+
+https://docs.anaconda.com/miniconda/install/#quick-command-line-install
+
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm ~/miniconda3/miniconda.sh
+
+After installing, close and reopen your terminal application or refresh it by running the following command:
+
+source ~/miniconda3/bin/activate
+
+To initialize conda on all available shells, run the following command:
+
+conda init --all
+
