@@ -7,131 +7,6 @@
 
 </div>
 
-## Overview
-The simulation framework around the CARLA-Autoware-Bridge consists of the components:
-- carla-autoware-bridge: This repository holding the CARLA-Autoware-Bridge.
-- ros-bridge: Fork of the ros-bridge with our changes needed for the CARLA-Autoware-Bridge.
-- carla-t2: Vehicle model and sensor kit packages of the CARLA T2 2021 Vehicle for Autoware.
-- carla-ros-msgs:  Fork of the carla-ros-msg with our changes needed for the CARLA-Autoware-Bridge.
-
-## Prerequisites
-Install ubuntu 24.04
- 
-https://ubuntu.com/download/desktop
-
-Install Terminator 
-```
-sudo apt update
-sudo apt install terminator
-```
-
-Install Visual Studio Code 
-https://code.visualstudio.com/docs/?dv=linux64_deb
-Install using App center
-
-Install docker
-https://docs.docker.com/engine/install/ubuntu/
-```
-# Add Docker's official GPG key:
-sudo apt-get update
-sudo apt-get install ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-# Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-
- sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
-```
-
-Fixing sudo's problem
-```
-sudo groupadd -f docker
-sudo usermod -a docker $USER
-
-logout from system and log in
-
-```
-
-
-
-Dockers handling
-```
-# Download an image from a registry
-docker pull [OPTIONS] NAME[:TAG|@DIGEST]
-# Example 
-docker pull debian
-
-# Create and run a new container from an image
-docker run
-# Example
-docker run --name test -d nginx:alpine
-
-# Execute a command in a running container
-docker exec
-# Example
-docker exec -it container-name /bin/bash
-
-# Load an image from a tar archive or STDIN
-docker load [OPTIONS]
-# Example
-docker load --input fedora.tar
-
-# Save one or more images to a tar archive (streamed to STDOUT by default)
-docker save [OPTIONS] IMAGE [IMAGE...]
-# Example
-docker save --output busybox.tar busybox
-
-# List images
-docker images
-
-# List containers
-docker ps
-```
-
-
-Install Nvidia docker toolkit
-
-[Nvidia docker toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
-```
-Configure the production repository:
-
-curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
-  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
-    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
-    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
-
-Update the packages list from the repository:
-
-sudo apt-get update
-
-Install the NVIDIA Container Toolkit packages:
-
-sudo apt-get install -y nvidia-container-toolkit
-
-Configure the container runtime by using the nvidia-ctk command:
-
-sudo nvidia-ctk runtime configure --runtime=docker
-
-Restart the Docker daemon:
-
-sudo systemctl restart docker
-```
-
-## Introduction
-The CARLA-Autoware-Bridge is a package to connect the CARLA simulator to Autoware Core/Universe with the help of the CARLA-ROS-Bridge. Currently the **latest Autoware Core/Universe** and **CARLA 0.9.15** is supported.
-### Youtube Demo Video + Quickstart
-| Demo                                            | Quickstart                                         |
-| ----------------------------------------------------- | ---------------------------------------------- |
-| [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/aEx8yBY06Jw/0.jpg)](https://youtu.be/aEx8yBY06Jw)                                       | [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/OmnMnvz949Y/0.jpg)](https://youtu.be/OmnMnvz949Y)                             |
-
-
 ## Paper
 If you use this or the other associated repos, please cite our Paper:
 
@@ -149,6 +24,88 @@ with a Unified Framework for Simulation and Module Development,
 
 The Paper is currently under review and only published as preprint.
 
+
+
+
+# Overview
+The simulation framework around the CARLA-Autoware-Bridge consists of the components:
+- **carla-autoware-bridge**: This repository holding the CARLA-Autoware-Bridge.
+- **ros-bridge**: Fork of the ros-bridge with our changes needed for the CARLA-Autoware-Bridge.
+- **carla-t2**: Vehicle model and sensor kit packages of the CARLA T2 2021 Vehicle for Autoware.
+- **carla-ros-msgs**:  Fork of the carla-ros-msg with our changes needed for the CARLA-Autoware-Bridge.
+
+# Prerequisites
+### Install ubuntu 24.04
+ 
+https://ubuntu.com/download/desktop
+
+
+### Install Terminator
+```bash
+sudo apt update
+sudo apt install terminator
+```
+
+### Install Visual Studio Code 
+
+https://code.visualstudio.com/docs/?dv=linux64_deb
+
+Install using App center
+
+### Install docker
+https://docs.docker.com/engine/install/ubuntu/
+```bash
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+Fixing sudo's problem
+```bash
+sudo groupadd -f docker
+sudo usermod -a docker $USER
+```
+Logout from system and log in
+
+
+### Install Nvidia docker toolkit
+
+[Nvidia docker toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+```bash
+# Configure the production repository:
+
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+# Update the packages list from the repository:
+
+sudo apt-get update
+
+# Install the NVIDIA Container Toolkit packages:
+
+sudo apt-get install -y nvidia-container-toolkit
+
+# Configure the container runtime by using the nvidia-ctk command:
+
+sudo nvidia-ctk runtime configure --runtime=docker
+
+# Restart the Docker daemon:
+
+sudo systemctl restart docker
+```
 
 
 
@@ -228,12 +185,12 @@ cd Carla-Autoware-Bridge/
 git clone https://github.com/autowarefoundation/autoware.git
 ```
 cd autoware
-```
+``` 
 git checkout 2024.01
 ```
 
 Install Rocker
-```
+``` bash
 sudo apt install software-properties-common
 sudo apt update && sudo apt install curl -y
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
@@ -243,16 +200,16 @@ sudo apt-get install python3-rocker
 ```
 
 Run docker
-```
+``` bash
 rocker --network=host -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --nvidia --volume /path/to/code -- ghcr.io/autowarefoundation/autoware:humble-2024.01-cuda-amd64
 ```
 In my case something like that:
-```
+```bash
 rocker --network=host -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --nvidia --volume /home/ads/Carla-Autoware-Bridge/ -- ghcr.io/autowarefoundation/autoware:humble-2024.01-cuda-amd64
 ```
 
 Inside docker
-```
+```bash
 cd /home/ads/Carla-Autoware-Bridge/autoware
 mkdir src
 vcs import src < autoware.repos
@@ -271,24 +228,28 @@ In VS code open folder
 Carla-Autoware-Bridge/autoware 
 
 open file
+```xml
 autoware/src/launcher/autoware_launch/autoware_launch/launch/autoware.launch.xml
-change line 71 to 
 ```
+change line 71 to 
+```xml
 <arg name="config_dir" value="$(find-pkg-share carla_t2_sensor_kit_description)/config/"/>
 ```
 
 save changes
 
 open file
+```xml
 autoware/src/launcher/autoware_launch/autoware_launch/launch/components/tier4_localization_component.launch.xml
+```
 
 change line 6 to 
-```
+```xml
 <arg name="input_pointcloud" default="/sensor/lidar/front" description="The topic will be used in the localization util module"/>
 ```
 
 add to line 7 
-```
+```xml
 <arg name="lidar_container_name" default="/sensing/lidar/front/pointcloud_preprocessor/pointcloud_container" description="The target container to which lidar preprocessing nodes in localization be attached"/>
 ```
 save changes
@@ -313,8 +274,9 @@ docker run -it -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp --network host tumgeka/c
 ros2 launch carla_autoware_bridge carla_aw_bridge.launch.py  town:=Town10HD timeout:=500
 
 # Start the autoware docker
-rocker --network=host -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --nvidia --volume /home/ads/Carla-Autoware-Bridge -- ghcr.io/autowarefoundation/autoware-universe:humble-2024.01-cuda-amd64
+rocker --network=host -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --nvidia --volume /home/ads/Carla-Autoware-Bridge -- ghcr.io/autowarefoundation/autoware:humble-2024.01-cuda-amd64
 
+# Launch the bridge
 cd /home/ads/Carla-Autoware-Bridge/autoware
 source install/setup.bash
 ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=carla_t2_vehicle sensor_model:=carla_t2_sensor_kit map_path:=/home/ads/Carla-Autoware-Bridge/Town10
@@ -354,3 +316,47 @@ apt install wget
 wget https://files.pythonhosted.org/packages/ae/1d/4f717f56dcaa27fa35f7d51b1d858be1e68271e34d1c3f1f24c5cabe3a9c/carla-0.9.15-cp37-cp37m-manylinux_2_27_x86_64.whl
 
  pip3 install carla==0.9.15
+
+ ## Might be useful
+
+ ## Introduction
+The CARLA-Autoware-Bridge is a package to connect the CARLA simulator to Autoware Core/Universe with the help of the CARLA-ROS-Bridge. Currently the **latest Autoware Core/Universe** and **CARLA 0.9.15** is supported.
+### Youtube Demo Video + Quickstart
+| Demo                                            | Quickstart                                         |
+| ----------------------------------------------------- | ---------------------------------------------- |
+| [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/aEx8yBY06Jw/0.jpg)](https://youtu.be/aEx8yBY06Jw)                                       | [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/OmnMnvz949Y/0.jpg)](https://youtu.be/OmnMnvz949Y)    
+
+
+## Dockers handling
+```
+# Download an image from a registry
+docker pull [OPTIONS] NAME[:TAG|@DIGEST]
+# Example 
+docker pull debian
+
+# Create and run a new container from an image
+docker run
+# Example
+docker run --name test -d nginx:alpine
+
+# Execute a command in a running container
+docker exec
+# Example
+docker exec -it container-name /bin/bash
+
+# Load an image from a tar archive or STDIN
+docker load [OPTIONS]
+# Example
+docker load --input fedora.tar
+
+# Save one or more images to a tar archive (streamed to STDOUT by default)
+docker save [OPTIONS] IMAGE [IMAGE...]
+# Example
+docker save --output busybox.tar busybox
+
+# List images
+docker images
+
+# List containers
+docker ps
+```
