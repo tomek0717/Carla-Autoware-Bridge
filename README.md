@@ -61,6 +61,9 @@ Install using App center
      Additional drivers
         Nvidia open driver server 535 (proprietary)
 
+     if problems with xdg run:
+     xhost local:root
+
 ### Install docker
 https://docs.docker.com/engine/install/ubuntu/
 ```bash
