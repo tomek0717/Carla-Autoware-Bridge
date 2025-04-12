@@ -52,6 +52,15 @@ https://code.visualstudio.com/docs/?dv=linux64_deb
 
 Install using App center
 
+### Install Nvidia drivers
+
+   - cleaning the old ones
+     sudo apt-get remove --purge '^nvidia-.*'
+
+     Using Gui / software and updates install
+     Additional drivers
+        Nvidia open driver server 535 (proprietary)
+
 ### Install docker
 https://docs.docker.com/engine/install/ubuntu/
 ```bash
