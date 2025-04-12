@@ -1,4 +1,4 @@
-<div align="center">
+d<div align="center">
 
 # CARLA-Autoware-Bridge - Enables the use of CARLA for Testing and Development of Autoware Core/Universe
 [![Linux](https://img.shields.io/badge/os-ubuntu24.04-blue.svg)](https://www.linux.org/)
@@ -166,7 +166,7 @@ Additional information:
 
 If you want to spawn traffic run the following script inside the docker:
 ```
-python3 src/carla_autoware_bridge/utils/generate_traffic.py -p 1403
+python3 src/carla_autoware_bridge/utils/generate_traffic.py -p 2000
 ```
 #### Maps
 Autoware needs the maps in a special lanelet2 format, we will upload all converted maps in the future under the following link: [carla-autoware-bridge/maps](https://syncandshare.lrz.de/getlink/fiBgYSNkmsmRB28meoX3gZ/)
