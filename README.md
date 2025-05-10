@@ -153,7 +153,7 @@ docker pull tumgeka/carla-autoware-bridge:latest
 Run the carla-autoware-bridge
 ```bash
 # If you are using a docker start the docker first
-docker run -it -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp --network host tumgeka/carla-autoware-bridge:latest
+docker run -it -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp --network=host tumgeka/carla-autoware-bridge:latest
 
 # Launch the bridge
 ros2 launch carla_autoware_bridge carla_aw_bridge.launch.py town:=Town10HD timeout:=500
@@ -284,7 +284,7 @@ Runing scheme :
 docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY carlasim/carla:0.9.15 /bin/bash ./CarlaUE4.sh -prefernvidia -quality-level=Low
 
 # Start the bridge docker
-docker run -it -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp --network host tumgeka/carla-autoware-bridge:latest
+docker run -it -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp --network=host tumgeka/carla-autoware-bridge:latest
 
 # Launch the bridge
 ros2 launch carla_autoware_bridge carla_aw_bridge.launch.py  town:=Town10HD timeout:=500
