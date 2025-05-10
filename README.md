@@ -292,7 +292,7 @@ ros2 launch carla_autoware_bridge carla_aw_bridge.launch.py  town:=Town10HD time
 # Start the autoware docker
 rocker --network=host -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --nvidia --volume /home/student/Carla-Autoware-Bridge -- ghcr.io/autowarefoundation/autoware:humble-2024.01-cuda-amd64
 
-# Launch the bridge
+# Inside autoware container
 cd /home/student/Carla-Autoware-Bridge/autoware
 source install/setup.bash
 ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=carla_t2_vehicle sensor_model:=carla_t2_sensor_kit map_path:=/home/student/Carla-Autoware-Bridge/Town10
