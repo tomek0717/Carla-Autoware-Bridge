@@ -344,25 +344,23 @@ Runing scheme :
 
 ```bash
 # Start carla
-docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY carlasim/carla:0.9.15 /bin/bash ./CarlaUE4.sh -prefernvidia -quality-level=Low
+sudo docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY carlasim/carla:0.9.15 /bin/bash ./CarlaUE4.sh -prefernvidia -quality-level=Low
 
 # Start the bridge docker
-docker run -it -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp --network=host tumgeka/carla-autoware-bridge:latest
+sudo docker run -it -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp --network=host tumgeka/carla-autoware-bridge:latest
 
 # Launch the bridge
 ros2 launch carla_autoware_bridge carla_aw_bridge.launch.py  town:=Town10HD timeout:=500
 
 # Start the autoware docker
-rocker --network=host -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --nvidia --volume /home/student/Carla-Autoware-Bridge -- ghcr.io/autowarefoundation/autoware:humble-2024.01-cuda-amd64
+sudo rocker   --network=host   --env=RMW_IMPLEMENTATION=rmw_cyclonedds_cpp   --env=LIBGL_ALWAYS_SOFTWARE=1   --x11   --nvidia=auto   --volume=/home/tomasz-bukal/Carla-Autoware-Bridge:/home/tomasz-bukal/Carla-Autoware-Bridge   --volume=/home/tomasz-bukal/ros2_bags:/ros2_bag local/autoware:humble-custom
 
 # Inside autoware container
-cd /home/student/Carla-Autoware-Bridge/autoware
+cd /home/tomasz-bukal/Carla-Autoware-Bridge/autoware
 source install/setup.bash
-ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=carla_t2_vehicle sensor_model:=carla_t2_sensor_kit map_path:=/home/student/Carla-Autoware-Bridge/Town10
+ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=carla_t2_vehicle sensor_model:=carla_t2_sensor_kit map_path:=/home/tomasz-bukal/Carla-Autoware-Bridge/Town10
 
 ```
-
-
 
 
 ## Limitations and Future Work
